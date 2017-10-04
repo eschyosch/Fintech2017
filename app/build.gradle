@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword '000000'
+            storeFile file('C:/Users/o_0--/AndroidStudioProjects/Fintech2017/keystore.jks')
+            storePassword '000000'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
@@ -16,11 +24,39 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        prodDebug {
+            debuggable true
+            jniDebuggable false
+            renderscriptDebuggable false
+            renderscriptOptimLevel 3
+            minifyEnabled false
+            zipAlignEnabled true
+        }
+    }
+    productFlavors {
+        flavor {
+            minSdkVersion 16
+            applicationId 'ru.rezepov.fintech2017.flavor'
+            targetSdkVersion 26
+            signingConfig signingConfigs.config
+        }
+        flavor1 {
+            minSdkVersion 16
+            applicationId 'ru.rezepov.fintech2017.flavor1'
+            targetSdkVersion 26
+            signingConfig signingConfigs.config
+        }
+        flavor2 {
+            minSdkVersion 16
+            applicationId 'ru.rezepov.fintech2017.flavor2'
+            targetSdkVersion 26
+            signingConfig signingConfigs.config
+        }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
